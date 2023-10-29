@@ -1,4 +1,11 @@
-# shell-quote
+# shell-quote <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
+
+[![github actions][actions-image]][actions-url]
+[![coverage][codecov-image]][codecov-url]
+[![License][license-image]][license-url]
+[![Downloads][downloads-image]][downloads-url]
+
+[![npm badge][npm-badge-png]][package-url]
 
 Parse and quote shell commands.
 
@@ -7,7 +14,7 @@ Parse and quote shell commands.
 ## quote
 
 ``` js
-var quote = require('shell-quote').quote;
+var quote = require('shell-quote/quote');
 var s = quote([ 'a', 'b c d', '$f', '"g"' ]);
 console.log(s);
 ```
@@ -21,7 +28,7 @@ a 'b c d' \$f '"g"'
 ## parse
 
 ``` js
-var parse = require('shell-quote').parse;
+var parse = require('shell-quote/parse');
 var xs = parse('a "b c" \\$def \'it\\\'s great\'');
 console.dir(xs);
 ```
@@ -35,7 +42,7 @@ output
 ## parse with an environment variable
 
 ``` js
-var parse = require('shell-quote').parse;
+var parse = require('shell-quote/parse');
 var xs = parse('beep --boop="$PWD"', { PWD: '/home/robot' });
 console.dir(xs);
 ```
@@ -49,21 +56,21 @@ output
 ## parse with custom escape character
 
 ``` js
-var parse = require('shell-quote').parse;
-var xs = parse('beep --boop="$PWD"', { PWD: '/home/robot' }, { escape: '^' });
+var parse = require('shell-quote/parse');
+var xs = parse('beep ^--boop="$PWD"', { PWD: '/home/robot' }, { escape: '^' });
 console.dir(xs);
 ```
 
 output
 
 ```
-[ 'beep', '--boop=/home/robot' ]
+[ 'beep --boop=/home/robot' ]
 ```
 
 ## parsing shell operators
 
 ``` js
-var parse = require('shell-quote').parse;
+var parse = require('shell-quote/parse');
 var xs = parse('beep || boop > /byte');
 console.dir(xs);
 ```
@@ -77,7 +84,7 @@ output:
 ## parsing shell comment
 
 ``` js
-var parse = require('shell-quote').parse;
+var parse = require('shell-quote/parse');
 var xs = parse('beep > boop # > kaboom');
 console.dir(xs);
 ```
@@ -91,8 +98,8 @@ output:
 # methods
 
 ``` js
-var quote = require('shell-quote').quote;
-var parse = require('shell-quote').parse;
+var quote = require('shell-quote/quote');
+var parse = require('shell-quote/parse');
 ```
 
 ## quote(args)
@@ -136,3 +143,19 @@ npm install shell-quote
 # license
 
 MIT
+
+[package-url]: https://npmjs.org/package/shell-quote
+[npm-version-svg]: https://versionbadg.es/ljharb/shell-quote.svg
+[deps-svg]: https://david-dm.org/ljharb/shell-quote.svg
+[deps-url]: https://david-dm.org/ljharb/shell-quote
+[dev-deps-svg]: https://david-dm.org/ljharb/shell-quote/dev-status.svg
+[dev-deps-url]: https://david-dm.org/ljharb/shell-quote#info=devDependencies
+[npm-badge-png]: https://nodei.co/npm/shell-quote.png?downloads=true&stars=true
+[license-image]: https://img.shields.io/npm/l/shell-quote.svg
+[license-url]: LICENSE
+[downloads-image]: https://img.shields.io/npm/dm/shell-quote.svg
+[downloads-url]: https://npm-stat.com/charts.html?package=shell-quote
+[codecov-image]: https://codecov.io/gh/ljharb/shell-quote/branch/main/graphs/badge.svg
+[codecov-url]: https://app.codecov.io/gh/ljharb/shell-quote/
+[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/ljharb/shell-quote
+[actions-url]: https://github.com/ljharb/shell-quote/actions
