@@ -144,7 +144,7 @@ npm install @mergesium/shell-quote
 
 MIT
 
-[package-url]: https://npmjs.org/package/@Mergesium/shell-quote
+[package-url]: https://npmjs.org/package/@mergesium/shell-quote
 [npm-version-svg]: https://versionbadg.es/Mergesium/@mergesium/shell-quote.svg
 [deps-svg]: https://david-dm.org/Mergesium/node-shell-quote.svg
 [deps-url]: https://david-dm.org/Mergesium/node-shell-quote
