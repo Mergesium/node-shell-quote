@@ -1,4 +1,4 @@
-# shell-quote <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
+# @mergesium/shell-quote <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
 
 [![github actions][actions-image]][actions-url]
 [![coverage][codecov-image]][codecov-url]
@@ -14,7 +14,7 @@ Parse and quote shell commands.
 ## quote
 
 ``` js
-var quote = require('shell-quote/quote');
+var quote = require('@mergesium/shell-quote/quote');
 var s = quote([ 'a', 'b c d', '$f', '"g"' ]);
 console.log(s);
 ```
@@ -28,7 +28,7 @@ a 'b c d' \$f '"g"'
 ## parse
 
 ``` js
-var parse = require('shell-quote/parse');
+var parse = require('@mergesium/shell-quote/parse');
 var xs = parse('a "b c" \\$def \'it\\\'s great\'');
 console.dir(xs);
 ```
@@ -42,7 +42,7 @@ output
 ## parse with an environment variable
 
 ``` js
-var parse = require('shell-quote/parse');
+var parse = require('@mergesium/shell-quote/parse');
 var xs = parse('beep --boop="$PWD"', { PWD: '/home/robot' });
 console.dir(xs);
 ```
@@ -56,7 +56,7 @@ output
 ## parse with custom escape character
 
 ``` js
-var parse = require('shell-quote/parse');
+var parse = require('@mergesium/shell-quote/parse');
 var xs = parse('beep ^--boop="$PWD"', { PWD: '/home/robot' }, { escape: '^' });
 console.dir(xs);
 ```
@@ -70,7 +70,7 @@ output
 ## parsing shell operators
 
 ``` js
-var parse = require('shell-quote/parse');
+var parse = require('@mergesium/shell-quote/parse');
 var xs = parse('beep || boop > /byte');
 console.dir(xs);
 ```
@@ -84,7 +84,7 @@ output:
 ## parsing shell comment
 
 ``` js
-var parse = require('shell-quote/parse');
+var parse = require('@mergesium/shell-quote/parse');
 var xs = parse('beep > boop # > kaboom');
 console.dir(xs);
 ```
@@ -98,8 +98,8 @@ output:
 # methods
 
 ``` js
-var quote = require('shell-quote/quote');
-var parse = require('shell-quote/parse');
+var quote = require('@mergesium/shell-quote/quote');
+var parse = require('@mergesium/shell-quote/parse');
 ```
 
 ## quote(args)
@@ -137,25 +137,25 @@ parses as:
 With [npm](http://npmjs.org) do:
 
 ```
-npm install shell-quote
+npm install @mergesium/shell-quote
 ```
 
 # license
 
 MIT
 
-[package-url]: https://npmjs.org/package/shell-quote
-[npm-version-svg]: https://versionbadg.es/ljharb/shell-quote.svg
-[deps-svg]: https://david-dm.org/ljharb/shell-quote.svg
-[deps-url]: https://david-dm.org/ljharb/shell-quote
-[dev-deps-svg]: https://david-dm.org/ljharb/shell-quote/dev-status.svg
-[dev-deps-url]: https://david-dm.org/ljharb/shell-quote#info=devDependencies
-[npm-badge-png]: https://nodei.co/npm/shell-quote.png?downloads=true&stars=true
-[license-image]: https://img.shields.io/npm/l/shell-quote.svg
+[package-url]: https://npmjs.org/package/@Mergesium/shell-quote
+[npm-version-svg]: https://versionbadg.es/Mergesium/@mergesium/shell-quote.svg
+[deps-svg]: https://david-dm.org/Mergesium/node-shell-quote.svg
+[deps-url]: https://david-dm.org/Mergesium/node-shell-quote
+[dev-deps-svg]: https://david-dm.org/Mergesium/node-shell-quote/dev-status.svg
+[dev-deps-url]: https://david-dm.org/Mergesium/node-shell-quote#info=devDependencies
+[npm-badge-png]: https://nodei.co/npm/@mergesium/shell-quote.png?downloads=true&stars=true
+[license-image]: https://img.shields.io/npm/l/@mergesium/shell-quote.svg
 [license-url]: LICENSE
-[downloads-image]: https://img.shields.io/npm/dm/shell-quote.svg
-[downloads-url]: https://npm-stat.com/charts.html?package=shell-quote
-[codecov-image]: https://codecov.io/gh/ljharb/shell-quote/branch/main/graphs/badge.svg
-[codecov-url]: https://app.codecov.io/gh/ljharb/shell-quote/
-[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/ljharb/shell-quote
-[actions-url]: https://github.com/ljharb/shell-quote/actions
+[downloads-image]: https://img.shields.io/npm/dm/@mergesium/shell-quote.svg
+[downloads-url]: https://npm-stat.com/charts.html?package=@mergesium/shell-quote
+[codecov-image]: https://codecov.io/gh/Mergesium/node-shell-quote/branch/main/graphs/badge.svg
+[codecov-url]: https://app.codecov.io/gh/Mergesium/node-shell-quote/
+[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/Mergesium/node-shell-quote
+[actions-url]: https://github.com/Mergesium/node-shell-quote/actions
