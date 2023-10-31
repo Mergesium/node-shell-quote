@@ -1,6 +1,20 @@
 # acorn-node change log
 
 All notable changes to this project will be documented in this file.
+Starting at release 2.0.0, the project will be strictly Semantically Versioned.
+
+## 2.0.0 2023-10-31
+* This is a compatibility breaking change due to behaviour change of quote()
+* `quote` fixes picked up from all forks in the network (if I missed any, submit issue)
+  * backslashes no longer doubled (@drok/Radu Hociung)
+  * Fix - bash Brace Expansion is correctly quoted (@drok, @iFixit/Daniel Beardsley)
+  * Major change - glob ops correctly passed through (@emosbaugh/Ethan Mosbaugh)
+  * Fix - quoting exclamation marks near single-quotes (@raxod502/Radon Rosborough)
+  * Fix - correctly quote empty string (@cspotcode/Andrew Bradley)
+  * Major change - Double quotes are no longer used as escape, only single quotes. The output should contain
+    the minumum necessary quoting, and be eyeball-friendly, as well as shell-grammar compliant. (@drok)
+  * Major change - control characters are escaped as \E, \t, or \x.., no longer passed through literally (@drok)
+* New - `quote_ascii`: works like quote but also escapes Unicode characters as \uHHHH (@drok)
 
 ## 1.8.1 2023-10-29
 - @Mergesium started a new fork focused on quality. Package will be scoped @mergesium/shell-quote.

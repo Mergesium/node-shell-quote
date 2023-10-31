@@ -9,22 +9,62 @@
 
 Parse and quote shell commands.
 
-# example
+# Example usage
 
 ## quote
+The `quote` function is used to convert an array of N arbitrary strings into a correctly escaped / quoted string that a Posix shell would parse as the same N individual words. Unicode characters are preserved for readability, but not all terminal emulators are able to take Unicode text cut and pasted. To escape the Unicode to \uXXXX sequences, use the `quote_ascii` variant.
 
+The output of `quote` is [POSIX shell compliant](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html), and should also be compatible with flavours like bash, ksh, etc. However, Windows CMD is not supported because it interprets the single quote as a literal rather than a quoting character. Commands which are intended to run on windows will have the incorrect quoting, and likely need manual adjustment to make them correct.
+### Example (open in [Codepen](https://codepen.io/drok-the-scripter/pen/WNPxjaE?editors=0011)):
 ``` js
-var quote = require('@mergesium/shell-quote/quote');
-var s = quote([ 'a', 'b c d', '$f', '"g"' ]);
-console.log(s);
+var { quote } = require('@mergesium/shell-quote/quote');
+
+var user_input = "|-|ello world! | am Bobby⇥les; I have * your files now.";
+var cmd_pipe = [
+    'echo', '-n', user_input,
+        {op: '|'},
+    'grep', "-qi", "hello",
+        {op: '||'},
+    'echo', "Rude New User"];
+
+console.log(quote(cmd_pipe));
+// No, Bobby, you don't have *
 ```
 
-output
+### Output:
 
 ```
-a 'b c d' \$f '"g"'
+echo -n '|-|ello world! | am Bobby⇥les; I have * your files now.' | grep -qi hello || echo 'Rude New User'
+```
+Ie. if pasted into a terminal window, the shell would `echo` the user input to the stdin of `grep` and output 'Rude New User' if the word 'hello' is not found:
+
+All characters which have a special meaning to the shell (eg, <, >, `, $, #, etc) are quoted appropriately, so the output string can be cut-and-pasted into a terminal window.
+
+The example above, demostrates how our old friend [Bobby Tables](https://xkcd.com/327/) provided some input which is quoted/sanitized as to thwart Bobby's intended exploit.
+## quote_ascii
+Same as quote, except it also escapes all Unicode characters to \uXXXX sequences.In the example, the `⇥` is the only Unicode character, and it is escaped too.
+
+### Example:
+``` js
+const { quote_ascii } = require('@mergesium/shell-quote/quote');
+
+var user_input = "|-|ello world! | am Bobby⇥les; I have * your files now.";
+var cmd_pipe = [
+    'echo', '-n', user_input,
+        {op: '|'},
+    'grep', "-qi", "hello",
+        {op: '||'},
+    'echo', "Rude New User"];
+
+console.log(quote_ascii(cmd_pipe));
+// No, Bobby, you don't have *
 ```
 
+### Output:
+
+```
+echo -n '|-|ello world! | am Bobby'\\u21e5'les; I have * your files now.' | grep -qi hello || echo 'Rude New User'
+```
 ## parse
 
 ``` js
