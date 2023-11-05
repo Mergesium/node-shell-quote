@@ -1,5 +1,3 @@
-'use strict';
-
 var test = require('tape');
 const { quote: uut_quote, quote_ascii: uut_quote_ascii } = require('../quote');
 
