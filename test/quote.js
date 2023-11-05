@@ -66,6 +66,23 @@ function shell_special_chars(t) {
 	t.equal(quote(['a', 1, null, undefined]), 'a 1 null undefined');
 	t.equal(quote(['a\\x']), "'a\\x'");
 
+	// Tilde expansions
+	t.equal(quote(['~']), "'~'");
+	t.equal(quote(['VAR=~']), "'VAR=~'");
+	t.equal(quote(['SUB:~']), "'SUB:~'");
+	t.equal(quote(['~word']), "'~word'");
+	t.equal(quote(['cat', '~/.bashrc']), "cat '~/.bashrc'");
+	t.equal(quote(['cat', 'VAR=~/.bashrc']), "cat 'VAR=~/.bashrc'");
+	t.equal(quote(['cat', 'VAR:~/.bashrc']), "cat 'VAR:~/.bashrc'");
+	t.equal(quote(['cat', '~/s p a c e']), "cat '~/s p a c e'");
+	t.equal(quote(['cat', 'SUB=~/s p a c e']), "cat 'SUB=~/s p a c e'");
+	t.equal(quote(['cat', 'VAR:~/s p a c e']), "cat 'VAR:~/s p a c e'");
+	t.equal(quote(['HEAD=~2']), "'HEAD=~2'");
+	t.equal(quote(['HEAD:~2']), "'HEAD:~2'");
+
+	// Tilde non-expansions
+	t.equal(quote(['HEAD~2']), 'HEAD~2');
+
 	// Bash brace expansions {a,b} or {a..b} must be quoted
 	t.equal(quote(['a{1,2}']), "'a{1,2}'");
 	t.equal(quote(['a{,2}']), "'a{,2}'");

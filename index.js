@@ -39,7 +39,7 @@ function quote_impl(xs, quote_unicode) {
 			// bash: |  & ; ( ) < > space tab
 			// Also escapes bash curly brace ranges {a..b} {a..z..3} {1..20} {a,b} but not
 			// {a...b} or {..a}
-			else if ((/(?:["\\$`! |&;\(\)<>#]|{[\d]+\.{2}[\d]+(?:\.\.\d+)?}|{[a-zA-Z].{2}[a-zA-Z](?:\.\.\d+)?}|{[^{]*,[^}]*})/m).test(s)) {
+            else if ((/(?:["\\$`! |&;\(\)<>#]|{[\d]+\.{2}[\d]+(?:\.\.\d+)?}|{[a-zA-Z].{2}[a-zA-Z](?:\.\.\d+)?}|{[^{]*,[^}]*}|(?:(^|:|=)~))/m).test(s)) {
 				// If input contains outer single quote, escape each of them individually.
 				// eg. 'a b c' -> \''a b c'\'
 				var outer_quotes = s.match(/^('*)(.*?)('*)$/s);
