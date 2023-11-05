@@ -49,6 +49,7 @@
 	},
 	"publishConfig": {
 		"ignore": [
+			"test",
 			".github/workflows"
 		]
 	}
