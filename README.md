@@ -1,9 +1,8 @@
-# @mergesium/shell-quote <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
+# NPM Package: [@mergesium/shell-quote]([package-url])
 
 [![github actions][actions-image]][actions-url]
 [![coverage][codecov-image]][codecov-url]
 [![License][license-image]][license-url]
-[![Downloads][downloads-image]][downloads-url]
 
 [![npm badge][npm-badge-png]][package-url]
 
@@ -145,17 +144,10 @@ npm install @mergesium/shell-quote
 MIT
 
 [package-url]: https://npmjs.org/package/@mergesium/shell-quote
-[npm-version-svg]: https://versionbadg.es/Mergesium/@mergesium/shell-quote.svg
-[deps-svg]: https://david-dm.org/Mergesium/node-shell-quote.svg
-[deps-url]: https://david-dm.org/Mergesium/node-shell-quote
-[dev-deps-svg]: https://david-dm.org/Mergesium/node-shell-quote/dev-status.svg
-[dev-deps-url]: https://david-dm.org/Mergesium/node-shell-quote#info=devDependencies
 [npm-badge-png]: https://nodei.co/npm/@mergesium/shell-quote.png?downloads=true&stars=true
-[license-image]: https://img.shields.io/npm/l/@mergesium/shell-quote.svg
+[license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [license-url]: LICENSE
-[downloads-image]: https://img.shields.io/npm/dm/@mergesium/shell-quote.svg
-[downloads-url]: https://npm-stat.com/charts.html?package=@mergesium/shell-quote
-[codecov-image]: https://codecov.io/gh/Mergesium/node-shell-quote/branch/main/graphs/badge.svg
-[codecov-url]: https://app.codecov.io/gh/Mergesium/node-shell-quote/
-[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/Mergesium/node-shell-quote
-[actions-url]: https://github.com/Mergesium/node-shell-quote/actions
+[codecov-image]: https://codecov.io/github/Mergesium/node-shell-quote/graph/badge.svg
+[codecov-url]: https://codecov.io/github/Mergesium/node-shell-quote
+[actions-image]: https://github.com/Mergesium/node-shell-quote/actions/workflows/nodejs.yml/badge.svg?branch=main
+[actions-url]: https://github.com/Mergesium/node-shell-quote/actions/workflows/nodejs.yml?query=branch%3Amain
