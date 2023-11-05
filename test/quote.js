@@ -1,5 +1,3 @@
-'use strict';
-
 var test = require('tape');
 var quote = require('../').quote;
 
