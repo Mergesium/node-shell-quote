@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 Starting at release 2.0.0, the project will be strictly Semantically Versioned.
 
+## 2.0.1 2021-11-05
+* Fix - "Tilde ~ sometimes not quoted" [Mergesium/node-shell-quote#4](https://github.com/Mergesium/node-shell-quote/issues/4) (@drok, thanks @Ordoviz for report)
+* Fix - "NPM packages are missing type declarations" [Mergesium/node-shell-quote#5](https://github.com/Mergesium/node-shell-quote/issues/5) (@drok)
+
 ## 2.0.0 2023-10-31
 * This is a compatibility breaking change due to behaviour change of quote()
 * `quote` fixes picked up from all forks in the network (if I missed any, submit issue)

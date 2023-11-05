@@ -10,53 +10,19 @@
 // Useful when its output will be read in a Unicode capable environment,
 // like an editor, an email, a web page or a UTF-8 capable terminal
 // emulator
-function quote(xs) {
-    return xs.map(function (s) {
-        if (s && typeof s === 'object') {
-            if (s.op === 'glob') {
-                return s.pattern;
-            }
-            return s.op;
-        }
-        else {
-			s = String(s).replace(/\x00/g, ''); // eat \x00 just like the shell.
-			if(s === '') {
-				return "''";
-			}
-			// Enclose strings with metacharacters in single quoted,
-			// and escape any single quotes.
-			// Match strictly to avoid escaping things that don't need to be.
-			// bash: |  & ; ( ) < > space tab
-			// Also escapes bash curly brace ranges {a..b} {a..z..3} {1..20} {a,b} but not
-			// {a...b} or {..a}
-			else if ((/(?:["\\$`! |&;\(\)<>#]|{[\d]+\.{2}[\d]+(?:\.\.\d+)?}|{[a-zA-Z].{2}[a-zA-Z](?:\.\.\d+)?}|{[^{]*,[^}]*})/m).test(s)) {
-				// If input contains outer single quote, escape each of them individually.
-				// eg. 'a b c' -> \''a b c'\'
-				var outer_quotes = s.match(/^('*)(.*?)('*)$/s);
-
-				var inner_string = outer_quotes[2].replace(/'/g, '\'\\\'\'');
-
-				// the starting outer quotes individually escaped
-				return String(outer_quotes[1]).replace(/(.)/g, '\\$1') +
-					// the text inside the outer single quotes is single quoted
-					"'" + unprintableEscape(inner_string, "'", false).replace(/(?<!\\)''/g, '') + "'" +
-					// "'" + inner_string + "'" +
-					// the ending outer quotes individually escaped
-					String(outer_quotes[3]).replace(/(.)/g, '\\$1');
-			}
-			// Only escape the single quotes in strings without metachars or
-			// separators
-			return unprintableEscape(String(s).replace(/(')/g, '\\$1'), '', false);
-		}
-    }).join(' ');
+exports.quote = function (xs) {
+    return quote_impl(xs, false);
 }
-
 // quote_ascii - Quotes an array of strings to a strict ASCII representation.
 //               Does the same as quote(), except:
 //               Escapes Unicode characters to \ux???? sequences
 // Suitable when the output will be read or pasted into an environment which is not
 // UTF-8 capable (eg, some terminal emulators)
-function quote_ascii(xs) {
+exports.quote_ascii = function(xs) {
+    return quote_impl(xs, true);
+}
+
+function quote_impl(xs, quote_unicode) {
     return xs.map(function (s) {
         if (s && typeof s === 'object') {
             if (s.op === 'glob') {
@@ -75,7 +41,7 @@ function quote_ascii(xs) {
 			// bash: |  & ; ( ) < > space tab
 			// Also escapes bash curly brace ranges {a..b} {a..z..3} {1..20} {a,b} but not
 			// {a...b} or {..a}
-			else if ((/(?:["\\$`! |&;\(\)<>#]|{[\d]+\.{2}[\d]+(?:\.\.\d+)?}|{[a-zA-Z].{2}[a-zA-Z](?:\.\.\d+)?}|{[^{]*,[^}]*})/m).test(s)) {
+            else if ((/(?:["\\$`! |&;\(\)<>#]|{[\d]+\.{2}[\d]+(?:\.\.\d+)?}|{[a-zA-Z].{2}[a-zA-Z](?:\.\.\d+)?}|{[^{]*,[^}]*}|(?:(^|:|=)~))/m).test(s)) {
 				// If input contains outer single quote, escape each of them individually.
 				// eg. 'a b c' -> \''a b c'\'
 				var outer_quotes = s.match(/^('*)(.*?)('*)$/s);
@@ -85,14 +51,14 @@ function quote_ascii(xs) {
 				// the starting outer quotes individually escaped
 				return String(outer_quotes[1]).replace(/(.)/g, '\\$1') +
 					// the text inside the outer single quotes is single quoted
-					"'" + unprintableEscape(inner_string, "'", true).replace(/(?<!\\)''/g, '') + "'" +
+					"'" + unprintableEscape(inner_string, "'", quote_unicode).replace(/(?<!\\)''/g, '') + "'" +
 					// "'" + inner_string + "'" +
 					// the ending outer quotes individually escaped
 					String(outer_quotes[3]).replace(/(.)/g, '\\$1');
 			}
 			// Only escape the single quotes in strings without metachars or
 			// separators
-			return unprintableEscape(String(s).replace(/(')/g, '\\$1'), '', true);
+			return unprintableEscape(String(s).replace(/(')/g, '\\$1'), '', quote_unicode);
 		}
     }).join(' ');
 }
@@ -129,8 +95,3 @@ function unprintableEscape(string, quote, ascii) {
                 })
                 .join("");
 }
-
-module.exports = {
-    quote_ascii: quote_ascii,
-    quote: quote
-};
