@@ -49,6 +49,7 @@
 	},
 	"publishConfig": {
 		"ignore": [
+			".nycrc",
 			"test",
 			".github/workflows"
 		]
